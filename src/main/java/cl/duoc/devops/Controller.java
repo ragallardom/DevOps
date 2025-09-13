@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class Controller {
         LocalDateTime now = LocalDateTime.now();
         String saludo = "Hola Mundo";
         if (nombre != null && !nombre.isBlank()) {
+            String seguro = HtmlUtils.htmlEscape(nombre.trim());
             saludo = "Hola, " + nombre;
         }
         return saludo + "\nLa hora en este momento es: " + now.format(HORA_FORMATTER);
