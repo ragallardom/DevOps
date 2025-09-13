@@ -54,3 +54,4 @@ mvn spring-boot:run
 - Se corrige error de seguridad que permite inyección de código en el endpoint GET /.
 - Se agrega endpint GEt /timestamp que devuelve los segundos que han pasado desde 2000.
 - Se agrega endpoint GET /sum que recibe dos parámetros y devuelve su suma.
+- Se agrega archivo ci.yaml con las tareas a realizar con github actions.
