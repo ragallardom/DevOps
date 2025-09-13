@@ -42,4 +42,13 @@ public class Controller {
         long epochSeconds = Instant.now().getEpochSecond();
         return "Segundos que han pasado desde 2000-01-01: " + epochSeconds;
     }
+
+    @GetMapping("/sum")
+    public String sum(
+            @RequestParam("a") int a,
+            @RequestParam("b") int b) {
+        int resultado = a + b;
+        return "La suma es: " + resultado;
+    }
+
 }
