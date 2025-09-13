@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,7 +26,7 @@ public class Controller {
         String saludo = "Hola Mundo";
         if (nombre != null && !nombre.isBlank()) {
             String seguro = HtmlUtils.htmlEscape(nombre.trim());
-            saludo = "Hola, " + nombre;
+            saludo = "Hola, " + seguro;
         }
         return saludo + "\nLa hora en este momento es: " + now.format(HORA_FORMATTER);
     }
@@ -34,5 +35,11 @@ public class Controller {
     public String getFecha() {
         LocalDate today = LocalDate.now();
         return "La fecha de hoy es: " + today.format(FECHA_FORMATTER);
+    }
+
+    @GetMapping("/timestamp")
+    public String getTimestamp() {
+        long epochSeconds = Instant.now().getEpochSecond();
+        return "Segundos que han pasado desde 2000-01-01: " + epochSeconds;
     }
 }
