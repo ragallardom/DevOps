@@ -49,7 +49,6 @@ public class Controller {
             @RequestParam("b") int b) {
         int resultado = a + b;
         return "La suma es: " + resultado;
-
     }
 
 }
