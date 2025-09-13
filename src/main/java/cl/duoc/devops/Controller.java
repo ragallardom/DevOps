@@ -2,6 +2,7 @@ package cl.duoc.devops;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -17,10 +18,14 @@ public class Controller {
             DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @GetMapping(value = "/", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String hola() {
-        String ahora = LocalDateTime.now().format(FMT);
-        return "Hola Mundo\nLa hora en este momento es: " + ahora;
+    @GetMapping("/")
+    public String getHora(@RequestParam(value = "nombre", required = false) String nombre) {
+        LocalDateTime now = LocalDateTime.now();
+        String saludo = "Hola Mundo";
+        if (nombre != null && !nombre.isBlank()) {
+            saludo = "Hola, " + nombre;
+        }
+        return saludo + "\nLa hora en este momento es: " + now.format(HORA_FORMATTER);
     }
 
     @GetMapping("/fecha")
