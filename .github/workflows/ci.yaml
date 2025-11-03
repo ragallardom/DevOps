@@ -41,7 +41,6 @@ jobs:
 
       - name: Snyk test → JSON
         working-directory: ${{ env.PROJECT_DIR }}
-        continue-on-error: true
         run: |
           chmod +x ./mvnw || true
           snyk test \
@@ -142,6 +141,7 @@ jobs:
             -Dsonar.projectKey=${SONAR_PROJECTKEY} \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN} \
+            -Dsonar.qualitygate.wait=true \
             -Dsonar.branch.name=${{ github.ref_name }} \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
@@ -182,14 +182,13 @@ jobs:
           snyk --version
 
       - name: Snyk Container scan → JSON
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           snyk auth "${SNYK_TOKEN}"
           snyk container test ${GITHUB_REPOSITORY}:${{ steps.tag.outputs.IMAGE_TAG }} \
             --file=Dockerfile \
-            --severity-threshold=low \
+            --severity-threshold=high \
             --json-file-output=snyk-container-report.json
 
       - name: Snyk Container Summary
