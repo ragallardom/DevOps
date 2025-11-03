@@ -50,4 +50,9 @@ public class Controller {
         return "La suma es: " + resultado;
     }
 
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
+
 }

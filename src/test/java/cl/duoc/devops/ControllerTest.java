@@ -58,4 +58,12 @@ class ControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("La suma es: 9"));
     }
+
+    @Test
+    @DisplayName("GET /health should return OK")
+    void healthEndpointReturnsOk() throws Exception {
+        mockMvc.perform(get("/health"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("OK"));
+    }
 }
