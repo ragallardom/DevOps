@@ -242,7 +242,8 @@ jobs:
   deploy-simulado:
     name: Deploy simulado
     runs-on: ubuntu-latest
-    needs: container-scan
+    needs: [container-scan, detect-dockerfile]
+    if: ${{ needs.detect-dockerfile.outputs.has_dockerfile == 'true' }}
 
     steps:
       - name: Checkout
