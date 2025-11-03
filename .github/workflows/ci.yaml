@@ -151,7 +151,22 @@ jobs:
           java-version: 21
           cache: maven
 
+      - name: Determine if SonarCloud credentials are available
+        id: sonar-toggle
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
+          SONAR_PROJECTKEY: ${{ secrets.SONAR_PROJECTKEY }}
+        run: |
+          if [ -z "${SONAR_TOKEN}" ] || [ -z "${SONAR_ORGANIZATION}" ] || [ -z "${SONAR_PROJECTKEY}" ]; then
+            echo "SonarCloud credentials are not fully configured. Skipping analysis."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run SonarCloud Analysis (Maven)
+        if: steps.sonar-toggle.outputs.enabled == 'true'
         working-directory: ${{ env.PROJECT_DIR }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
