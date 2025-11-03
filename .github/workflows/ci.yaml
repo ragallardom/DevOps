@@ -158,7 +158,16 @@ jobs:
           SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
           SONAR_PROJECTKEY: ${{ secrets.SONAR_PROJECTKEY }}
         run: |
-          if [ -z "${SONAR_TOKEN}" ] || [ -z "${SONAR_ORGANIZATION}" ] || [ -z "${SONAR_PROJECTKEY}" ]; then
+          is_placeholder() {
+            case "$1" in
+              ""|REPLACE_WITH*|replace_with*) return 0 ;;
+              *) return 1 ;;
+            esac
+          }
+
+          if is_placeholder "${SONAR_TOKEN}" || \
+             is_placeholder "${SONAR_ORGANIZATION}" || \
+             is_placeholder "${SONAR_PROJECTKEY}"; then
             echo "SonarCloud credentials are not fully configured. Skipping analysis."
             echo "enabled=false" >> "$GITHUB_OUTPUT"
           else
