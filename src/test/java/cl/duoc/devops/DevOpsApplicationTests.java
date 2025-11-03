@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DevOpsApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void contextLoads() {  // Noncompliant - method is empty
 	}
 
 }
