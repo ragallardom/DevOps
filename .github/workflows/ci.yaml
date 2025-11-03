@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload Snyk JSON Report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: snyk-report
           path: ${{ env.PROJECT_DIR }}/snyk-report.json
@@ -99,7 +99,7 @@ jobs:
 
       - name: Upload JaCoCo report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: jacoco-report
           path: |
@@ -213,7 +213,7 @@ jobs:
 
       - name: Upload Snyk Container JSON Report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: snyk-container-report
           path: snyk-container-report.json
