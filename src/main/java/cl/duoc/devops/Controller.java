@@ -17,8 +17,6 @@ public class Controller {
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final DateTimeFormatter FECHA_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     @GetMapping("/")
     public String getHora(@RequestParam(value = "nombre", required = false) String nombre) {
         LocalDateTime now = LocalDateTime.now();
